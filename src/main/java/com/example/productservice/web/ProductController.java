@@ -1,5 +1,6 @@
 package com.example.productservice.web;
 
+import com.example.productservice.common.annotation.JwtAction;
 import com.example.productservice.repository.entity.Product;
 import com.example.productservice.repository.util.ProductInfo;
 import com.example.productservice.service.spi.ProductService;
@@ -19,6 +20,7 @@ public class ProductController {
   private final ProductService productService;
 
   @GetMapping("/{id}")
+  @JwtAction("productos")
   public ApiResponse<Product> getProductById(@PathVariable Long id) {
     Product product = productService.findProductById(id);
     return ApiResponse.<Product>builder()
@@ -28,6 +30,7 @@ public class ProductController {
   }
 
   @GetMapping()
+  @JwtAction("productos")
   public ApiResponse<Product> getProductById(@RequestParam String sku) {
     Product product = productService.findBySku(sku);
     return ApiResponse.<Product>builder()
@@ -37,6 +40,7 @@ public class ProductController {
   }
 
   @GetMapping("update")
+  @JwtAction("productos")
   public ApiResponse<Boolean> updateDescriptionBySku(@RequestParam String sku, @RequestParam String description) {
     boolean isUpdated = productService.updateDescriptionBySku(description, sku);
     return ApiResponse.<Boolean>builder()
@@ -46,9 +50,10 @@ public class ProductController {
   }
 
   @GetMapping("create")
+  @JwtAction("productos")
   public ApiResponse<Boolean> createProduct() {
-    Product product = Product.of("S0003",
-      new ProductInfo("2021-01-01", "2021-10-12", 12));
+    Product product = Product.of("S0006",
+      new ProductInfo("2021-01-01", "2021-10-12", 19));
     productService.create(product);
     return ApiResponse.<Boolean>builder()
       .data(true)
