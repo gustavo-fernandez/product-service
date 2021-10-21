@@ -3,6 +3,7 @@ package com.example.productservice.service.impl;
 import com.example.productservice.repository.ProductRepository;
 import com.example.productservice.repository.entity.Product;
 import com.example.productservice.service.spi.ProductService;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public boolean updateDescriptionBySku(String description, String sku) {
-    return productRepository.updateDescriptionBySku(description, sku);
+    return productRepository.updateDescriptionBySku(description, sku, LocalDateTime.now());
   }
 
   @Override
